@@ -18,4 +18,19 @@ df = pandas.DataFrame(my_catalog)
 
 # put the first column into a list
 color_list = df[0].values.tolist()
-print(color_list)
+# print(color_list)
+
+# color picker
+option = streamlit.selectbox('Pick a sweatsuit color or style:', list(color_list))
+
+# image caption
+product_caption = 'Our warm, comfortable, ' + option + ' sweatsuit!'
+
+# return information about selected option
+my_cur.execute("select direct_url, price, size_list, upsell_product_desc from catalog_for_website where color_or_style = '" + option + "';")
+product_info = my_cur.fetchone()
+
+streamlit.image(product_info[0], caption=product_caption, width=400)
+streamlit.write('Price: $' + str(product_info[1]))
+streamlit.write('Available sizes: ' + product_info[2])
+streamlit.write(product_info[3])
