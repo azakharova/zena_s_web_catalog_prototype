@@ -14,4 +14,8 @@ my_catalog = my_cur.fetchall()
 
 # put the dafta into a dataframe
 df = pandas.DataFrame(my_catalog)
-streamlit.write(df)
+# streamlit.write(df)
+
+# put the first column into a list
+color_list = df[0].values.tolist()
+print(color_list)
