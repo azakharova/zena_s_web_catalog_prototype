@@ -21,7 +21,7 @@ color_list = df[0].values.tolist()
 # print(color_list)
 
 # color picker
-with streamlit.form("color_picker_form", clear_on_submit=False, border=False):
+with streamlit.form("color_picker_form", clear_on_submit=True, border=False):
     option = streamlit.selectbox('Pick a sweatsuit color or style:', list(color_list))
     submit_button = streamlit.form_submit_button(label='Submit')
     if submit_button:
