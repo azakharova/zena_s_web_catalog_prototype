@@ -11,7 +11,9 @@ streamlit.title("Zena's Amazing Athleisure Catalog")
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_colors = my_cur.execute("select distinct color_or_style from catalog_for_website")
+my_cur.execute("select distinct color_or_style from catalog_for_website")
+my_colors = my_cur.fetchall()
 streamlit.write(my_colors)
-# my_colors = [row[0] for row in my_cur.fetchall()]
+my_colors = [row[0] for row in my_cur.fetchall()]
+streamlit.write(my_colors)
 # color_selected = streamlit.selectbox("Pick a sweatsuit color or style:", my_colors)
