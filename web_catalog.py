@@ -1,19 +1,17 @@
 import streamlit
 import snowflake.connector
+import pandas
 
 streamlit.title("Zena's Amazing Athleisure Catalog")
 
-# color's list for picker
-# def get_colors():
-#     with my_cnx.cursor() as cur:
-#         my_cur.execute("select distinct color_or_style from zenas_athleisure_db.products.catalog_for_website")
-#         return my_cur.fetchall()
-
+# connect to snowflake
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
+
+# run a snowflake query and put it all in a var called my_catalog
 my_cur.execute("select distinct color_or_style from catalog_for_website")
-my_colors = my_cur.fetchall()
-streamlit.write(my_colors)
-my_colors = [row[0] for row in my_cur.fetchall()]
-streamlit.write(my_colors)
-# color_selected = streamlit.selectbox("Pick a sweatsuit color or style:", my_colors)
+my_catalog = my_cur.fetchall()
+
+# put the dafta into a dataframe
+df = pandas.DataFrame(my_catalog)
+streamlit.write(df)
