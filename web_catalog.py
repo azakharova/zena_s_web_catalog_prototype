@@ -25,7 +25,9 @@ if 'selected_option' not in st.session_state:
 # Color picker
 with st.form("color_picker_form", clear_on_submit=True, border=False):
     # Use session_state for the selected option
-    option = st.selectbox('Pick a sweatsuit color or style:', list(color_list), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
+    # option = st.selectbox('Pick a sweatsuit color or style:', list(color_list), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
+    selected_index = st.selectbox('Pick a sweatsuit color or style:', range(len(color_list)), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
+    option = color_list[selected_index]
     submit_button = st.form_submit_button(label='Submit')
 
     if submit_button:
