@@ -14,10 +14,10 @@ my_catalog = my_cur.fetchall()
 
 # Put the data into a dataframe
 df = pandas.DataFrame(my_catalog)
+st.write(df)
 
 # Put the first column into a list
 color_list = df[0].values.tolist()
-color_list = color_list.set_index('color_or_style')
 st.write(color_list)
 
 # Initialize session state
