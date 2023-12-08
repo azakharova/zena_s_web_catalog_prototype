@@ -17,7 +17,7 @@ df = pandas.DataFrame(my_catalog)
 
 # Put the first column into a list
 color_list = df[0].values.tolist()
-print(color_list)
+st.write(color_list)
 
 # Initialize session state
 if 'selected_option' not in st.session_state:
