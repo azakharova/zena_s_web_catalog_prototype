@@ -22,26 +22,44 @@ color_list = df[0].values.tolist()
 if 'selected_option' not in st.session_state:
     st.session_state.selected_option = None
 
+# # Color picker
+# with st.form("color_picker_form", clear_on_submit=True, border=False):
+#     # Use session_state for the selected option
+#     # option = st.selectbox('Pick a sweatsuit color or style:', list(color_list), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
+#     selected_index = st.selectbox('Pick a sweatsuit color or style:', range(len(color_list)), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
+#     option = color_list[selected_index]
+#     submit_button = st.form_submit_button(label='Submit')
+
+#     if submit_button:
+#         # Save the selected option to session_state
+#         st.session_state.selected_option = option
+
+#         # Image caption
+#         product_caption = 'Our warm, comfortable, ' + option + ' sweatsuit!'
+
+#         # Return information about the selected option
+#         my_cur.execute("select direct_url, price, size_list, upsell_product_desc from catalog_for_website where color_or_style = '" + option + "';")
+#         product_info = my_cur.fetchone()
+
+#         st.image(product_info[0], caption=product_caption, width=400)
+#         st.write('Price: $' + str(product_info[1]))
+#         st.write('Available sizes: ' + product_info[2])
+#         st.write(product_info[3])
+
 # Color picker
-with st.form("color_picker_form", clear_on_submit=True, border=False):
-    # Use session_state for the selected option
-    # option = st.selectbox('Pick a sweatsuit color or style:', list(color_list), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
-    selected_index = st.selectbox('Pick a sweatsuit color or style:', range(len(color_list)), index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
-    option = color_list[selected_index]
-    submit_button = st.form_submit_button(label='Submit')
+option = st.selectbox('Pick a sweatsuit color or style:', color_list, index=color_list.index(st.session_state.selected_option) if st.session_state.selected_option else 0)
 
-    if submit_button:
-        # Save the selected option to session_state
-        st.session_state.selected_option = option
+# Save the selected option to session_state
+st.session_state.selected_option = option
 
-        # Image caption
-        product_caption = 'Our warm, comfortable, ' + option + ' sweatsuit!'
+# Image caption
+product_caption = 'Our warm, comfortable, ' + option + ' sweatsuit!'
 
-        # Return information about the selected option
-        my_cur.execute("select direct_url, price, size_list, upsell_product_desc from catalog_for_website where color_or_style = '" + option + "';")
-        product_info = my_cur.fetchone()
+# Return information about the selected option
+my_cur.execute("select direct_url, price, size_list, upsell_product_desc from catalog_for_website where color_or_style = '" + option + "';")
+product_info = my_cur.fetchone()
 
-        st.image(product_info[0], caption=product_caption, width=400)
-        st.write('Price: $' + str(product_info[1]))
-        st.write('Available sizes: ' + product_info[2])
-        st.write(product_info[3])
+st.image(product_info[0], caption=product_caption, width=400)
+st.write('Price: $' + str(product_info[1]))
+st.write('Available sizes: ' + product_info[2])
+st.write(product_info[3])
